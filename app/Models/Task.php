@@ -4,12 +4,17 @@ namespace App\Models;
 
 use App\Enums\TaskPriority;
 use App\Enums\TaskStatus;
+use App\Observers\TaskObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[ObservedBy([TaskObserver::class])]
 class Task extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'tasks';
 
@@ -18,19 +23,18 @@ class Task extends Model
         'description',
         'status',
         'priority',
-        'due_date',
-        'start_time',
-        'end_time',
+        'due_at',
+        'start_at',
+        'end_at',
         'assigned_to_id',
-        'assigned_by_id',
     ];
 
     protected $casts = [
         'status' => TaskStatus::class,
         'priority' => TaskPriority::class,
-        'due_date' => 'datetime',
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
+        'due_at' => 'datetime',
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     public function assignedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo

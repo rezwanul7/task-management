@@ -23,9 +23,9 @@ return new class extends Migration
             $table->enum('status', TaskStatus::values())->default(TaskStatus::PENDING->value);
             $table->enum('priority', TaskPriority::values())->default(TaskPriority::MEDIUM->value);
 
-            $table->timestamp('due_time')->nullable();
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
+            $table->timestamp('due_at')->nullable();
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
 
             $table->foreignIdFor(User::class, 'assigned_to_id')
                 ->constrained()

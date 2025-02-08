@@ -13,7 +13,7 @@ class TaskFactory extends Factory
 {
     protected $model = Task::class;
 
-    public function definition()
+    public function definition(): array
     {
         $supportTasks = [
             'Resolve login issue for customer',
@@ -43,13 +43,22 @@ class TaskFactory extends Factory
             'description' => $this->faker->sentence,
             'status' => $this->faker->randomElement(TaskStatus::values()),
             'priority' => $this->faker->randomElement(TaskPriority::values()),
-            'due_time' => $this->faker->optional()->dateTimeBetween('now', '+7 days'),
-            'start_time' => now(),
-            'end_time' => $this->faker->optional()->dateTimeBetween('now', '+7 days'),
+            'due_at' => $this->faker->optional()->dateTimeBetween('now', '+7 days'),
+            'start_at' => now(),
+            'end_at' => $this->faker->optional()->dateTimeBetween('now', '+7 days'),
             'assigned_to_id' => User::inRandomOrder()->first()->id ?? User::factory(),
-            'assigned_by_id' => User::inRandomOrder()->first()->id ?? User::factory(),
+            'assigned_by_id' => User::first()->id ?? User::factory(), // Assign to first user(admin) if exists
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    public function assignTo(User $user): TaskFactory
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'assigned_to_id' => $user->id ?? User::factory(),
+            ];
+        });
     }
 }
