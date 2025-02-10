@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TaskPriority;
 use App\Enums\TaskStatus;
 use App\Observers\TaskObserver;
+use App\Traits\PaginateAble;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,11 +16,12 @@ class Task extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use PaginateAble;
 
     protected $table = 'tasks';
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
         'status',
         'priority',

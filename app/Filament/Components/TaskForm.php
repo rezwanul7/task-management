@@ -14,7 +14,7 @@ class TaskForm
     public static function schema(): array
     {
         return [
-            Forms\Components\TextInput::make('title')
+            Forms\Components\TextInput::make('name')
                 ->required()
                 ->minLength(3)
                 ->maxLength(255),
