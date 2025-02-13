@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\ApiBaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PaginatedQueryBuilderRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
@@ -17,7 +19,7 @@ use Spatie\QueryBuilder\QueryBuilder;
  *
  * APIs to manage the task resource.
  * */
-class TaskApiController extends Controller
+class TaskController extends ApiBaseController
 {
     /**
      * List all Tasks
