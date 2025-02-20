@@ -39,7 +39,7 @@ class TaskFactory extends Factory
         ];
 
         return [
-            'title' => $this->faker->randomElement($supportTasks),
+            'name' => $this->faker->randomElement($supportTasks),
             'description' => $this->faker->sentence,
             'status' => $this->faker->randomElement(TaskStatus::values()),
             'priority' => $this->faker->randomElement(TaskPriority::values()),
