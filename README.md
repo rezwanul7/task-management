@@ -81,3 +81,10 @@ You're ready to go! Visit the url in your browser, and login with:
 
 - **Username:** admin@example.com
 - **Password:** password
+
+
+Generate Api Documentation:
+
+```shell
+php artisan scribe:generate
+```

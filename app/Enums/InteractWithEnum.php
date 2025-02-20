@@ -4,12 +4,6 @@ namespace App\Enums;
 
 trait InteractWithEnum
 {
-    /**
-     * Find ENUM by name or value
-     *
-     *
-     * @return InteractWithEnum|null
-     */
     public static function find(mixed $needle): ?self
     {
         if (in_array($needle, self::names())) {

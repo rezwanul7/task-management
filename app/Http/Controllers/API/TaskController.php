@@ -32,7 +32,7 @@ class TaskController extends ApiBaseController
             ->allowedFilters('id', 'name')
             ->defaultSort('-created_at')
             ->allowedSorts('id', 'name', 'created_at', 'updated_at')
-            ->applyPaginateAble();
+            ->paginate();
 
         return new TaskCollection($tasks);
     }

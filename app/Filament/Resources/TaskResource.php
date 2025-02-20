@@ -42,7 +42,7 @@ class TaskResource extends Resource
 
                         Forms\Components\Placeholder::make('assigned_by_id')
                             ->label('Assigned by')
-                            ->content(fn (Task $record): ?string => $record->assignedBy->name),
+                            ->content(fn (Task $record): string => $record->assignedBy->name),
                     ])
                     ->columnSpan(['lg' => 1])
                     ->hidden(fn (?Task $record) => $record === null),

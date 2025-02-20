@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Get staged PHP files with safe handling of spaces/newlines
+STAGED_FILES=()
+while IFS= read -r -d $'\0' file; do
+    if [[ "$file" =~ \.php$ ]]; then
+        STAGED_FILES+=("$file")
+    fi
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+# Exit if no PHP files are staged
+if [ ${#STAGED_FILES[@]} -eq 0 ]; then
+    exit 0
+fi
+
+# Verify Pint is installed
+if [ ! -f vendor/bin/pint ]; then
+    echo "Error: Laravel Pint not found. Install with 'composer require laravel/pint --dev'."
+    exit 1
+fi
+
+# Execute Pint on staged files
+vendor/bin/pint "${STAGED_FILES[@]}"
+
+# Add auto-fixed changes back to the commit
+git add "${STAGED_FILES[@]}"
+
+# Check for unresolved Pint issues
+vendor/bin/pint --test "${STAGED_FILES[@]}"
+PINT_EXIT_CODE=$?
+
+if [ $PINT_EXIT_CODE -ne 0 ]; then
+    echo -e "\n\033[0;31mPint found issues that require manual fixes. Commit aborted.\033[0m"
+    exit 1
+fi
+
+exit 0

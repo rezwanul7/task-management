@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class TaskResource extends JsonResource
 {
     /**
@@ -14,6 +15,17 @@ class TaskResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'status' => $this->status->value,
+            'priority' => $this->priority->value,
+            'due_at' => $this->due_at,
+            'start_at' => $this->start_at,
+            'end_at' => $this->end_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
