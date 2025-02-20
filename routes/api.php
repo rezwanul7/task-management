@@ -20,6 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Logout route
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::post('/auth/logout-everywhere', [AuthController::class, 'logoutEveryWhere']);
 });
 
 

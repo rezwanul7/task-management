@@ -1,6 +1,6 @@
 <?php
 
-it('homepage redirects to /admin/login', function () {
+test('homepage redirects to /admin/login', function () {
     $response = $this->get('/');
 
     $response->assertStatus(302)
