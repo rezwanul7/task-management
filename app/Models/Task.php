@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Task extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use PaginateAble;
+    use SoftDeletes;
 
     protected $table = 'tasks';
 

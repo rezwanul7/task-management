@@ -3,6 +3,7 @@
 use App\Models\Task;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 beforeEach(function () {
@@ -46,8 +47,8 @@ test('authenticated user can list all the tasks', function () {
                 'assigned_to_id',
                 'created_at',
                 'updated_at',
-            ]
-        ]
+            ],
+        ],
     ]);
 });
 
@@ -58,7 +59,6 @@ test('authenticated user can fetch a task', function () {
 
     $response->assertStatus(200);
 });
-
 
 test('authenticated user can delete a task', function () {
     $task = Task::factory()->create();

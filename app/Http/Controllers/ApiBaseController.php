@@ -2,7 +2,4 @@
 
 namespace App\Http\Controllers;
 
-class ApiBaseController extends Controller
-{
-
-}
+class ApiBaseController extends Controller {}

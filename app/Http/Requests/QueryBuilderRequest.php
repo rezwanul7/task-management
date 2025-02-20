@@ -51,25 +51,25 @@ class QueryBuilderRequest extends FormRequest
     {
         return [
             'filter' => [
-                'description' => "Filter by the field. Use filter[fieldName]=value for filtering.",
+                'description' => 'Filter by the field. Use filter[fieldName]=value for filtering.',
                 'example' => '{"name:John", "email:john@example.com"}',
                 'type' => 'object',
             ],
             'filter.name' => [
-                'description' => "Filter by the name field.",
-                'example' => "",
+                'description' => 'Filter by the name field.',
+                'example' => '',
             ],
             'sort' => [
                 'description' => "Comma-separated list of fields to sort by. Use -field for descending order. Defaults to '-created_at'",
-                'example' => "name,-created_at"
+                'example' => 'name,-created_at',
             ],
             'fields' => [
-                'description' => "Comma-separated list of fields to include in the response.",
-                'example' => "id,name,email"
+                'description' => 'Comma-separated list of fields to include in the response.',
+                'example' => 'id,name,email',
             ],
             'include' => [
-                'description' => "Comma-separated list of related models to include in the response.",
-                'example' => "posts"
+                'description' => 'Comma-separated list of related models to include in the response.',
+                'example' => 'posts',
             ],
         ];
     }

@@ -2,24 +2,21 @@
 
 namespace App\Enums;
 
-
 use App\Contracts\HasDisplayAttributes;
 use App\Traits\HasLabels;
 
 enum TaskPriority: string implements HasDisplayAttributes
 {
-    use InteractWithEnum;
     use HasLabels;
+    use InteractWithEnum;
 
     case LOW = 'low';
     case MEDIUM = 'medium';
     case HIGH = 'high';
 
-
     public function label(): string
     {
-        return match($this)
-        {
+        return match ($this) {
             self::LOW => 'Low',
             self::MEDIUM => 'Medium',
             self::HIGH => 'High',
@@ -28,8 +25,7 @@ enum TaskPriority: string implements HasDisplayAttributes
 
     public function color(): string
     {
-        return match($this)
-        {
+        return match ($this) {
             self::LOW => 'gray',
             self::MEDIUM => 'warning',
             self::HIGH => 'danger',

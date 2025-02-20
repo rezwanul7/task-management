@@ -48,7 +48,7 @@ test('authenticated user can logout', function () {
     $token = $user->createToken('my-app-token')->plainTextToken;
 
     $response = $this->postJson('/api/auth/logout', [], [
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ]);
 
     $response->assertNoContent();
@@ -59,7 +59,7 @@ test('authenticated user can logout from all devices', function () {
     $token = $user->createToken('my-app-token')->plainTextToken;
 
     $response = $this->postJson('/api/auth/logout-everywhere', [], [
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ]);
 
     $response->assertNoContent();
