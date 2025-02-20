@@ -88,3 +88,5 @@ Generate Api Documentation:
 ```shell
 php artisan scribe:generate
 ```
+
+Preview the documentation by visiting the url displayed in the terminal.
