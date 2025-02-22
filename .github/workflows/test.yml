@@ -12,7 +12,7 @@ jobs:
         php: [8.3]
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup PHP
@@ -37,6 +37,3 @@ jobs:
 
       - name: Run tests
         run: php artisan test --env=testing
-
-      - name: Run tests
-        run: php artisan test

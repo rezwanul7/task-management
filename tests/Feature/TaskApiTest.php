@@ -1,9 +1,10 @@
 <?php
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-
 use function Pest\Laravel\postJson;
 
 beforeEach(function () {
@@ -21,6 +22,8 @@ test('authenticated user can store a task', function () {
     $taskData = [
         'name' => 'Task 1',
         'description' => 'Description of Task 1',
+        'status' => TaskStatus::PENDING,
+        'priority' => TaskPriority::MEDIUM,
         'assigned_to_id' => User::factory()->create()->id,
     ];
 

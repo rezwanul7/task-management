@@ -1,0 +1,26 @@
+name: Laravel Static Analysis
+
+on: [push]
+
+jobs:
+  static-analysis:
+    name: Run Larastan (PHPStan for Laravel)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: mbstring, bcmath, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Run Static Analysis (Larastan)
+        run: ./vendor/bin/phpstan analyse --memory-limit=512M
