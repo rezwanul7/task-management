@@ -9,14 +9,19 @@ use App\Traits\PaginateAble;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property User|null $assignedBy
+ * @property User|null $assignedTo
+ */
 #[ObservedBy([TaskObserver::class])]
 class Task extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use PaginateAble;
+    use SoftDeletes;
 
     protected $table = 'tasks';
 
@@ -39,12 +44,12 @@ class Task extends Model
         'end_at' => 'datetime',
     ];
 
-    public function assignedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function assignedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_by_id');
     }
 
-    public function assignedTo(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function assignedTo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
     }

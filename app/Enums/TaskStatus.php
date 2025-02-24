@@ -8,14 +8,13 @@ use Mokhosh\FilamentKanban\Concerns\IsKanbanStatus;
 
 enum TaskStatus: string implements HasDisplayAttributes
 {
+    use HasLabels;
     use InteractWithEnum;
     use IsKanbanStatus;
-    use HasLabels;
 
     case PENDING = 'pending';
     case PROGRESS = 'progress';
     case COMPLETED = 'completed';
-
 
     public function label(): string
     {

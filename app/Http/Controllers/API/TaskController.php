@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\ApiBaseController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\PaginatedQueryBuilderRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
@@ -33,7 +32,7 @@ class TaskController extends ApiBaseController
             ->allowedFilters('id', 'name')
             ->defaultSort('-created_at')
             ->allowedSorts('id', 'name', 'created_at', 'updated_at')
-            ->applyPaginateAble();
+            ->paginate();
 
         return new TaskCollection($tasks);
     }
@@ -79,6 +78,7 @@ class TaskController extends ApiBaseController
      * Delete a Task
      *
      * Remove the specified resource from storage.
+     *
      * @throws \Throwable
      */
     #[\Knuckles\Scribe\Attributes\Response(status: Response::HTTP_NO_CONTENT)]
@@ -88,5 +88,4 @@ class TaskController extends ApiBaseController
 
         return response()->noContent();
     }
-
 }

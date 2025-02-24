@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
@@ -20,6 +22,8 @@ test('authenticated user can store a task', function () {
     $taskData = [
         'name' => 'Task 1',
         'description' => 'Description of Task 1',
+        'status' => TaskStatus::PENDING,
+        'priority' => TaskPriority::MEDIUM,
         'assigned_to_id' => User::factory()->create()->id,
     ];
 
@@ -46,8 +50,8 @@ test('authenticated user can list all the tasks', function () {
                 'assigned_to_id',
                 'created_at',
                 'updated_at',
-            ]
-        ]
+            ],
+        ],
     ]);
 });
 
@@ -58,7 +62,6 @@ test('authenticated user can fetch a task', function () {
 
     $response->assertStatus(200);
 });
-
 
 test('authenticated user can delete a task', function () {
     $task = Task::factory()->create();

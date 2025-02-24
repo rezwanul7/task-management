@@ -31,7 +31,7 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
-            $table->foreignIdFor(User::class,'assigned_by_id')
+            $table->foreignIdFor(User::class, 'assigned_by_id')
                 ->constrained()
                 ->nullOnDelete();
 

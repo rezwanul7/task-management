@@ -46,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
                     ->users([
                         'Admin' => 'admin@example.com',
                         'Test User' => 'test@example.com',
-                    ])
+                    ]),
             ])
             ->middleware([
                 EncryptCookies::class,

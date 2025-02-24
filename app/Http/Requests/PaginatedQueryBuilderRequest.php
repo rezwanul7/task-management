@@ -7,14 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class PaginatedQueryBuilderRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -54,33 +46,33 @@ class PaginatedQueryBuilderRequest extends FormRequest
     {
         return [
             'filter' => [
-                'description' => "Filter by the field. Use filter[fieldName]=value for filtering.",
+                'description' => 'Filter by the field. Use filter[fieldName]=value for filtering.',
                 'example' => '{"name:John", "email:john@example.com"}',
                 'type' => 'object',
             ],
             'filter.name' => [
-                'description' => "Filter by the name field.",
-                'example' => "",
+                'description' => 'Filter by the name field.',
+                'example' => '',
             ],
             'sort' => [
                 'description' => "Comma-separated list of fields to sort by. Use -field for descending order. Defaults to '-created_at'",
-                'example' => "name,-created_at"
+                'example' => 'name,-created_at',
             ],
             'fields' => [
-                'description' => "Comma-separated list of fields to include in the response.",
-                'example' => "id,name,email"
+                'description' => 'Comma-separated list of fields to include in the response.',
+                'example' => 'id,name,email',
             ],
             'include' => [
-                'description' => "Comma-separated list of related models to include in the response.",
-                'example' => "posts"
+                'description' => 'Comma-separated list of related models to include in the response.',
+                'example' => 'posts',
             ],
             'page' => [
-                'description' => "The page number.",
-                'example' => 1
+                'description' => 'The page number.',
+                'example' => 1,
             ],
             'per_page' => [
-                'description' => "The number of items per page.",
-                'example' => 10
+                'description' => 'The number of items per page.',
+                'example' => 10,
             ],
         ];
     }

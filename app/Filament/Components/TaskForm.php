@@ -4,8 +4,6 @@ namespace App\Filament\Components;
 
 use App\Enums\TaskPriority;
 use App\Enums\TaskStatus;
-use App\Filament\Resources\TaskResource\Pages\EditTask;
-use App\Filament\Resources\TaskResource\Pages\ViewTask;
 use Filament\Forms;
 use Illuminate\Validation\Rules\Enum;
 

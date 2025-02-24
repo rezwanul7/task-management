@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
-use App\Enums\TaskStatus;
-use App\Enums\TaskPriority;
 
 class TaskFactory extends Factory
 {
@@ -35,7 +34,7 @@ class TaskFactory extends Factory
             'Coordinate with engineering team for API issue',
             'Provide training material for new support agents',
             'Update knowledge base with latest fixes',
-            'Audit support ticket response times'
+            'Audit support ticket response times',
         ];
 
         return [
