@@ -7,11 +7,12 @@
 This is a simple task management system that allows users to create, read, update, and delete tasks. The system is built
 using Laravel Filament.
 
+- [Live Demo](https://task-management.rezwan.xyz)
+- [API Documentation](https://task-management.rezwan.xyz/docs)
+
 ---
 
 ![Filament Demo](docs/screencapture-task-listing.png)
-
-
 
 ### 🔥 Core Features & Best Practices
 
@@ -32,12 +33,10 @@ using Laravel Filament.
 - ✅ **Static Code Analysis** – Used **Larastan** (PHPStan for Laravel)
 - ✅ **Unit & Feature Tests** – Written using **Pest**, ensuring application reliability
 - ✅ **Security Considerations** – CSRF protection, validation, authentication
-[//]: # (- ✅ **Performance Optimizations** – Query optimization, caching, eager loading)
+- ✅ **Performance Optimizations** – Query optimization, caching, eager loading
 - ✅ **CI/CD Integration** – Automated testing & deployment
 
-
 ---
-
 
 ## Todos
 
@@ -116,7 +115,6 @@ You're ready to go! Visit the url in your browser, and login with:
 - **Username:** admin@example.com
 - **Password:** password
 
-
 Generate Api Documentation:
 
 ```shell
@@ -126,6 +124,7 @@ php artisan scribe:generate
 Preview the documentation by visiting the url displayed in the terminal.
 
 ## Code Styling
+
 Check for linting issues:
 
 ```shell
@@ -139,6 +138,7 @@ Automatically Fix linting issues :
 ```
 
 ## Static Analysis
+
 Run static code analysis:
 
 ```shell
@@ -146,6 +146,7 @@ Run static code analysis:
 ```
 
 ## Testing
+
 Run the tests:
 
 ```shell
