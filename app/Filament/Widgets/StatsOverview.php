@@ -2,15 +2,15 @@
 
 namespace App\Filament\Widgets;
 
-use App\Enums\TaskPriority;
 use App\Enums\TaskStatus;
 use App\Models\Task;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Carbon;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
 
@@ -22,21 +22,21 @@ class StatsOverview extends BaseWidget
         $inProgressTasksCount = $taskCounts->get(TaskStatus::PROGRESS->value, 0);
         $completedTasksCount = $taskCounts->get(TaskStatus::COMPLETED->value, 0);
 
-//        $totalTasksCount = $pendingTasksCount + $completedTasksCount + $inProgressTasksCount;
-//
-//        $overdueTasks = Task::where('status', '!=', TaskStatus::COMPLETED->value)
-//            ->where('due_date', '<', Carbon::today())
-//            ->count();
-//
-//        $highPriorityInCompleteTasks = Task::where('status', '!=', TaskStatus::COMPLETED->value)
-//            ->where('priority', TaskPriority::HIGH->value)
-//            ->count();
+        //        $totalTasksCount = $pendingTasksCount + $completedTasksCount + $inProgressTasksCount;
+        //
+        //        $overdueTasks = Task::where('status', '!=', TaskStatus::COMPLETED->value)
+        //            ->where('due_date', '<', Carbon::today())
+        //            ->count();
+        //
+        //        $highPriorityInCompleteTasks = Task::where('status', '!=', TaskStatus::COMPLETED->value)
+        //            ->where('priority', TaskPriority::HIGH->value)
+        //            ->count();
 
         return [
-//            Stat::make('Total Tasks', $totalTasksCount)
-//                ->description('All tasks in the system')
-//                ->icon('heroicon-o-clipboard')
-//                ->color('gray'),
+            //            Stat::make('Total Tasks', $totalTasksCount)
+            //                ->description('All tasks in the system')
+            //                ->icon('heroicon-o-clipboard')
+            //                ->color('gray'),
 
             Stat::make('Pending Tasks', $pendingTasksCount)
                 ->description('Tasks yet to be started')
@@ -53,15 +53,15 @@ class StatsOverview extends BaseWidget
                 ->icon('heroicon-o-check-circle')
                 ->color('success'),
 
-//            Stat::make('Overdue Tasks', $overdueTasks)
-//                ->description('Tasks past their due date')
-//                ->icon('heroicon-o-exclamation-circle')
-//                ->color('danger'),
-//
-//            Stat::make('High Priority Tasks', $highPriorityInCompleteTasks)
-//                ->description('Incomplete tasks with high priority')
-//                ->icon('heroicon-o-exclamation-circle')
-//                ->color('danger'),
+            //            Stat::make('Overdue Tasks', $overdueTasks)
+            //                ->description('Tasks past their due date')
+            //                ->icon('heroicon-o-exclamation-circle')
+            //                ->color('danger'),
+            //
+            //            Stat::make('High Priority Tasks', $highPriorityInCompleteTasks)
+            //                ->description('Incomplete tasks with high priority')
+            //                ->icon('heroicon-o-exclamation-circle')
+            //                ->color('danger'),
         ];
     }
 }

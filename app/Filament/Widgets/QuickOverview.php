@@ -9,9 +9,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class QuickTasksOverview extends BaseWidget
+class QuickOverview extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
+
+    protected static ?int $sort = 2;
 
     public function table(Table $table): Table
     {
@@ -30,13 +32,13 @@ class QuickTasksOverview extends BaseWidget
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('priority')
                     ->badge()
-                    ->formatStateUsing(fn(TaskPriority $state): string => $state->label())
-                    ->color(fn(TaskPriority $state): string => $state->color()),
+                    ->formatStateUsing(fn (TaskPriority $state): string => $state->label())
+                    ->color(fn (TaskPriority $state): string => $state->color()),
 
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->formatStateUsing(fn(TaskStatus $state): string => $state->label())
-                    ->color(fn(TaskStatus $state): string => $state->color()),
+                    ->formatStateUsing(fn (TaskStatus $state): string => $state->label())
+                    ->color(fn (TaskStatus $state): string => $state->color()),
 
                 Tables\Columns\TextColumn::make('assignedTo.name')
                     ->label('Assigned To'),
