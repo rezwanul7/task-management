@@ -8,7 +8,7 @@ This is a simple task management system that allows users to create, read, updat
 using Laravel Filament.
 
 - [Live Demo](https://task-management.rezwan.xyz)
-- [API Documentation](https://task-management.rezwan.xyz/docs)
+- [Live API Documentation](https://task-management.rezwan.xyz/docs)
 
 ---
 
