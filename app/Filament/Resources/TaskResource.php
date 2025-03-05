@@ -77,7 +77,7 @@ class TaskResource extends Resource
                 Tables\Columns\SelectColumn::make('status')
                     ->label('Change Status')
                     ->options(TaskStatus::labels())
-                    ->rules(['required', new Enum(TaskStatus::class)])
+                    ->rules(fn() => ['required', new Enum(TaskStatus::class)])
                     ->visible(fn() => !auth()->user()?->isSuperAdmin())
                     ->selectablePlaceholder(false),
 
