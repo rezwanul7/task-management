@@ -17,28 +17,38 @@ class QuickOverview extends BaseWidget
 
     public function table(Table $table): Table
     {
+        $query = Task::query();
+
+        if (!auth()->user()?->isSuperAdmin()) {
+            $query->where('assigned_to_id', auth()->id())
+                ->where(function ($query) {
+                    $query->where('priority', TaskPriority::HIGH->value)
+                        ->where('status', '!=', TaskStatus::COMPLETED->value);
+                });
+        } else {
+            $query->where('status', TaskStatus::PROGRESS->value)
+                ->orWhere(function ($query) {
+                    $query->where('priority', TaskPriority::HIGH->value)
+                        ->where('status', '!=', TaskStatus::COMPLETED->value);
+                });
+        }
+
+
         return $table
-            ->query(
-                Task::query()
-                    ->where('status', TaskStatus::PROGRESS->value)
-                    ->orWhere(function ($query) {
-                        $query->where('priority', TaskPriority::HIGH->value)
-                            ->where('status', '!=', TaskStatus::COMPLETED->value);
-                    })
-            )
+            ->query($query)
             ->paginated(false)
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('priority')
                     ->badge()
-                    ->formatStateUsing(fn (TaskPriority $state): string => $state->label())
-                    ->color(fn (TaskPriority $state): string => $state->color()),
+                    ->formatStateUsing(fn(TaskPriority $state): string => $state->label())
+                    ->color(fn(TaskPriority $state): string => $state->color()),
 
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->formatStateUsing(fn (TaskStatus $state): string => $state->label())
-                    ->color(fn (TaskStatus $state): string => $state->color()),
+                    ->formatStateUsing(fn(TaskStatus $state): string => $state->label())
+                    ->color(fn(TaskStatus $state): string => $state->color()),
 
                 Tables\Columns\TextColumn::make('assignedTo.name')
                     ->label('Assigned To'),
