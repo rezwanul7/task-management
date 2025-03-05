@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Modules\Shared\Enums\PlatformPermissionsEnum;
 
 class TaskPolicy
 {
@@ -64,4 +65,29 @@ class TaskPolicy
     {
         return false;
     }
+
+    /**
+     * Determine whether the user can bulk delete models.
+     */
+    public function deleteAny(User $user): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can bulk restore models.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can permanently bulk delete models.
+     */
+    public function forceDeleteAny(User $user): bool
+    {
+        return false;
+    }
+
 }
