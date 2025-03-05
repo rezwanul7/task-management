@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -40,7 +39,7 @@ class UserResource extends Resource
                 Tables\Columns\IconColumn::make('is_super_admin')
                     ->label('Super Admin')
                     ->boolean()
-                    ->getStateUsing(fn($record) => $record->isSuperAdmin()),
+                    ->getStateUsing(fn ($record) => $record->isSuperAdmin()),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()

@@ -5,6 +5,7 @@ use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 beforeEach(function () {

@@ -21,7 +21,7 @@ class UpdateTaskRequest extends FormRequest
             'description' => 'string',
             'status' => ['required', Rule::in(TaskStatus::values())],
             'priority' => ['required', Rule::in(TaskPriority::values())],
-            'assigned_to_id' => ['required', 'exists:users,id'],
+            'assigned_to_id' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }
