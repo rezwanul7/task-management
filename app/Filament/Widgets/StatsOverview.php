@@ -14,7 +14,13 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
 
-        $taskCounts = Task::selectRaw('status, COUNT(*) as count')
+        $query = Task::selectRaw('status, COUNT(*) as count');
+
+        if (!auth()->user()?->isSuperAdmin()) {
+            $query->where('assigned_to_id', auth()->id());
+        }
+
+        $taskCounts = $query
             ->groupBy('status')
             ->pluck('count', 'status');
 
