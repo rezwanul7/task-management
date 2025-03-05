@@ -15,11 +15,13 @@ class TaskForm
             Forms\Components\TextInput::make('name')
                 ->required()
                 ->minLength(3)
-                ->maxLength(255),
+                ->maxLength(255)
+                ->columnSpanFull(),
 
             Forms\Components\Textarea::make('description')
                 ->maxLength(500)
-                ->nullable(),
+                ->nullable()
+                ->columnSpanFull(),
 
             Forms\Components\Select::make('status')
                 ->options(TaskStatus::labels())

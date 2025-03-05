@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Enum;
 
 class TaskResource extends Resource
 {
@@ -28,24 +29,24 @@ class TaskResource extends Resource
                 Forms\Components\Section::make()
                     ->schema(TaskForm::schema())
                     ->columns(2)
-                    ->columnSpan(['lg' => fn (?Task $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Task $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Task $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn(Task $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Task $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn(Task $record): ?string => $record->updated_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('assigned_by_id')
                             ->label('Assigned by')
-                            ->content(fn (Task $record): string => $record->assignedBy->name),
+                            ->content(fn(Task $record): string => $record->assignedBy->name),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Task $record) => $record === null),
+                    ->hidden(fn(?Task $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -59,17 +60,26 @@ class TaskResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\TextColumn::make('status_label')
+                    ->label('Status')
+                    ->getStateUsing(fn(Task $record) => $record->status)
+                    ->formatStateUsing(fn(TaskStatus $state): string => $state->label())
                     ->badge()
-                    ->formatStateUsing(fn (TaskStatus $state): string => $state->label())
-                    ->color(fn (TaskStatus $state): string => $state->color())
+                    ->color(fn(TaskStatus $state): string => $state->color())
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('priority')
                     ->badge()
-                    ->formatStateUsing(fn (TaskPriority $state): string => $state->label())
-                    ->color(fn (TaskPriority $state): string => $state->color())
+                    ->formatStateUsing(fn(TaskPriority $state): string => $state->label())
+                    ->color(fn(TaskPriority $state): string => $state->color())
                     ->sortable(),
+
+                Tables\Columns\SelectColumn::make('status')
+                    ->label('Change Status')
+                    ->options(TaskStatus::labels())
+                    ->rules(['required', new Enum(TaskStatus::class)])
+                    ->visible(fn() => !auth()->user()?->isSuperAdmin())
+                    ->selectablePlaceholder(false),
 
                 Tables\Columns\TextColumn::make('assignedTo.name')
                     ->label('Assigned To')
@@ -104,7 +114,7 @@ class TaskResource extends Resource
                     ->relationship(
                         name: 'assignedTo',
                         titleAttribute: 'name',
-                    ),
+                    )->visible(fn() => auth()->user()?->isSuperAdmin()),
 
             ])
             ->actions([
@@ -134,16 +144,20 @@ class TaskResource extends Resource
         return [
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
-            'view' => Pages\ViewTask::route('/{record}'),
             'edit' => Pages\EditTask::route('/{record}/edit'),
         ];
     }
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        $query = parent::getEloquentQuery();
+
+        if (!auth()->user()?->isSuperAdmin()) {
+            $query->where('assigned_to_id', auth()->id());
+        }
+
+        return $query->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
     }
 }
